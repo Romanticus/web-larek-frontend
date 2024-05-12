@@ -1,27 +1,19 @@
-enum Category {
-	other = 'другое',
-	softSkill = 'софт-скил',
-	additional = 'дополнительное',
-	button = 'кнопка',
-	hardSkill = 'хард-скил',
+export enum PaymentType {
+	cash = 'cash',
+	card = 'card',
 }
 
-enum PaymentType {
-	cash = 'money',
-	online = 'online',
-}
-
-interface IProduct {
+export interface IProduct {
 	id: string;
 	description: string;
 	image: string;
 	title: string;
-	category: Category;
-	price: number;
+	category: string;
+	price: number | null;
 }
 
-interface IOrder {
-	payment: PaymentType;
+export interface IOrder {
+	payment: PaymentType | undefined;
 	email: string;
 	phone: string;
 	address: string;
@@ -29,16 +21,41 @@ interface IOrder {
 	items: string[];
 }
 
-interface IOrderModel {
-  order:IOrder;
-  addItem(item:IProduct):void;
-  deleteItem(itemId:string):void;
-	clearData():void;
+export interface IOrderResult {
+	id: string;
+	total: number;
 }
 
-interface ICatalogModel {
-  items: IProduct[];
-  setItems(items: IProduct[]):void;
-  getProduct(id:string):IProduct;
+export interface IOrderModel {
+	order: IOrder;
+	addItem(item: IProduct): void;
+	deleteItem(itemId: string): void;
+	clearData(): void;
+	setOrderField(
+		field: keyof IFormAddres | keyof IFormUser,
+		value: PaymentType | string
+	): void;
+	validateOrder(): boolean;
 }
 
+export interface ICatalogModel {
+	items: IProduct[];
+	getProduct(id: string): IProduct;
+}
+
+export interface IFormAddres {
+	payment: string;
+	address: string;
+}
+
+export interface IFormUser {
+	email: string;
+	phone: string;
+}
+
+export type FormErrors = Partial<Record<keyof IOrder, string>>;
+
+export type ApiListResponse<Type> = {
+	total: number;
+	items: Type[];
+};
