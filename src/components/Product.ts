@@ -1,4 +1,5 @@
 import { IProduct } from '../types';
+import { categoryColors } from '../utils/constants';
 import { Component } from './base/Component';
 import { IEvents } from './base/Events';
 
@@ -33,10 +34,6 @@ export class Product extends Component<IProduct> {
 			this.container.addEventListener('click', actions.onClick);
 		}
 
-		// this.container.addEventListener('click',()=>{
-		//   this.events.emit('catalog:select', { id:this.id});
-
-		// })
 	}
 	set image(src: string) {
 		this.setImage(this.productImage, src);
@@ -62,28 +59,11 @@ export class Product extends Component<IProduct> {
 	}
 
 	set category(category: string) {
-		switch (category) {
-			case 'софт-скил':
-				this.toggleClass(this.productCategory, 'card__category_soft', true);
-				break;
-			case 'хард-скил':
-				this.toggleClass(this.productCategory, 'card__category_hard', true);
-				break;
-			case 'другое':
-				this.toggleClass(this.productCategory, 'card__category_other', true);
-				break;
-			case 'дополнительное':
-				this.toggleClass(
-					this.productCategory,
-					'card__category_additional',
-					true
-				);
-				break;
-			case 'кнопка':
-				this.toggleClass(this.productCategory, 'card__category_button', true);
-				break;
-		}
-		this.setText(this.productCategory, category);
+		const categoryClass = categoryColors[category];
+    if (categoryClass) {
+        this.toggleClass(this.productCategory, categoryClass, true);
+        this.setText(this.productCategory, category);
+    }
 	}
 
 	set title(title: string) {

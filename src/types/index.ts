@@ -13,7 +13,7 @@ export interface IProduct {
 }
 
 export interface IOrder {
-	payment: PaymentType | undefined;
+	payment: PaymentType;
 	email: string;
 	phone: string;
 	address: string;
@@ -59,3 +59,7 @@ export type ApiListResponse<Type> = {
 	total: number;
 	items: Type[];
 };
+
+export interface ICategoryColors {
+  [key: string]: string;
+}

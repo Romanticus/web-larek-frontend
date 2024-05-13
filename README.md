@@ -129,8 +129,12 @@ export type ApiListResponse<Type> = {
     items: Type[]
 };
 ```
-
-
+Интерфейс настроек цветов категорий 
+```
+export interface ICategoryColors {
+  [key: string]: string;
+}
+```
 ## Архитектура приложения
 
 Код приложения разделен на слои согласно парадигме MVP:
