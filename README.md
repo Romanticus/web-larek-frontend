@@ -129,7 +129,7 @@ export type ApiListResponse<Type> = {
     items: Type[]
 };
 ```
-Интерфейс настроек цветов категорий 
+Интерфейс настроек цветов категорий
 ```
 export interface ICategoryColors {
   [key: string]: string;
@@ -228,7 +228,7 @@ export interface ICategoryColors {
 - _errors:HTMLElemnt - поле для ошибок
 
 Методы:
-
+- clearForm():void - метод очищающий форму
 - set valid(value: boolean): void - изменяет активность кнопки
 - set errors(value:string): void - устанавливает ошибки в поле
 - render(): HTMLFormElement - Возвращение формы
@@ -241,6 +241,7 @@ export interface ICategoryColors {
 
 Метод
 
+- clearForm():void - метод вызывает родительское очищение формы и устанавливает дефолтное значение выбора метода оплаты для кнопок
 - selectTypePayment(name:string):void - Устанавилвает в зависимости от способа оплаты, пришедшего как входное значение, активную кнопку
 
 
@@ -262,7 +263,7 @@ export interface ICategoryColors {
 - cardButton:HTMLButtonElement - кнопка для покупки товара
 
 Методы:
-
+- isUnvaible():boolean - проверяет стоимость продукта на бесценность (null)
 - yetBuyed(bool:Boolean):void - метод позволяющий заблокировать кнопку и сменить надпись или вернуть обратно в завимисоти от входящего значения
 - set description - устанавливает описание продукта
 

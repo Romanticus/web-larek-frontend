@@ -53,7 +53,7 @@ const previewProduct = new PreviewProduct(
 );
 
 const addressForm = new FormAddres(cloneTemplate(formAddressTemplate), events);
-const userForm = new Form(cloneTemplate(formUserTemplate), events);
+const userForm = new Form<IFormUser>(cloneTemplate(formUserTemplate), events);
 
 events.on(
 	/^[a-z]*\..*:change/,
@@ -81,6 +81,7 @@ events.on('formUserErrors:change', (errors: Partial<IFormUser>) => {
 events.on('order:confirm', () => {
 	modal.render({
 		content: addressForm.render({
+
 			valid: false,
 			errors: [],
 		}),
@@ -101,13 +102,16 @@ events.on('contacts:submit', () => {
 			const success = new Success(cloneTemplate(successTemplate), {
 				onClick: () => {
 					modal.close();
-					orderData.clearData();
 				},
 			});
 
 			modal.render({
 				content: success.render({ total: result.total }),
 			});
+      userForm.clearForm();
+      addressForm.clearForm();
+			orderData.clearData();
+
 		})
 		.catch((err) => {
 			console.error(err);
@@ -166,6 +170,8 @@ events.on('catalog:select', (data: { id: string }) => {
 			return id == data.id;
 		})
 	);
+  previewProduct.isUnvaible()
+
 });
 
 function pagelocked(value: boolean) {
@@ -205,7 +211,7 @@ events.on('order:changed', (order: IOrder) => {
 	});
 
 	basketCounter.textContent = `${newItems.length}`;
-
+  orderData.order.total=newTotal;
 	basketOrdersCatalog.render({
 		total: newTotal,
 		items: newItems,
@@ -218,4 +224,5 @@ events.on('order:add', (data: { product: IProduct }) => {
 });
 events.on('order:delete', (data: { id: string }) => {
 	orderData.deleteItem(data.id);
+
 });

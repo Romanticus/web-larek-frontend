@@ -9,15 +9,6 @@ import {
 } from '../types';
 import { IEvents } from './base/Events';
 
-const defaultOrder:IOrder={
-  payment: PaymentType.card,
-  email: '',
-  phone: '',
-  address: '',
-  total: 0,
-  items: [],
-};
-
 export class OrderData implements IOrderModel {
 	protected _order: IOrder;
 	protected events: IEvents;
@@ -25,7 +16,14 @@ export class OrderData implements IOrderModel {
 
 	constructor(events: IEvents) {
 		this.events = events;
-		this._order = defaultOrder;
+		this._order = {
+      payment: PaymentType.card,
+      email: '',
+      phone: '',
+      address: '',
+      total: 0,
+      items: [],
+    };
 	}
 
 	get order() {
@@ -44,7 +42,14 @@ export class OrderData implements IOrderModel {
 	}
 
 	clearData() {
-		this._order = defaultOrder;
+		this._order = {
+      payment: PaymentType.card,
+      email: '',
+      phone: '',
+      address: '',
+      total: 0,
+      items: [],
+    };
 		this._changed();
 	}
 	setOrderField(

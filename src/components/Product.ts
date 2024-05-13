@@ -61,7 +61,9 @@ export class Product extends Component<IProduct> {
 	set category(category: string) {
 		const categoryClass = categoryColors[category];
     if (categoryClass) {
+        this.productCategory.className="card__category"
         this.toggleClass(this.productCategory, categoryClass, true);
+
         this.setText(this.productCategory, category);
     }
 	}

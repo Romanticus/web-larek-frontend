@@ -19,6 +19,8 @@ export class FormAddres extends Form<IFormAddres> {
 				this.selectTypePayment(button.name);
 			});
 		});
+
+    this.selectTypePayment('card')
 	}
 
 	selectTypePayment(name: string) {
@@ -26,4 +28,8 @@ export class FormAddres extends Form<IFormAddres> {
 			this.toggleClass(button, 'button_alt-active', button.name == name);
 		});
 	}
+  clearForm(){
+    super.clearForm();
+    this.selectTypePayment('card');
+  }
 }

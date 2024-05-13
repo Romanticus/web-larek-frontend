@@ -11,14 +11,28 @@ export class PreviewProduct extends Product {
 		this.cardText = this.container.querySelector('.card__text');
 		this.cardButton = this.container.querySelector('.card__button');
 
-		this.cardButton.addEventListener('click', () => {
+
+      this.cardButton.addEventListener('click', () => {
 			this.events.emit('order:add', { product: this });
 			this.yetBuyed(true);
-		});
+		})
+
+
 	}
 
+  isUnvaible():boolean{
+    if(this.price == null){
+      this.setDisabled(this.cardButton,true);
+			this.setText(this.cardButton, 'Товар Бесценен!');
+      return true
+    }
+    return false
+
+  }
+
 	yetBuyed(bool: boolean) {
-		if (bool) {
+
+    if (bool) {
 			this.setDisabled(this.cardButton, true);
 			this.setText(this.cardButton, 'Уже в корзине');
 		} else {
